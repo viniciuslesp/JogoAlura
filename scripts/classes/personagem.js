@@ -11,7 +11,7 @@ class Personagem extends Animacao {
     }
 
     pula() {
-        this.velocidade_pulo = -50
+        this.velocidade_pulo = -50;
     }
 
     /**
