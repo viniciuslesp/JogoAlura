@@ -1,9 +1,9 @@
 class Personagem extends Animacao {
-    constructor(matriz, imagem, posX, largura, altura, larguraSprite, alturaSprite) {
-        super(matriz, imagem, posX, largura, altura, larguraSprite, alturaSprite)
+    constructor(matriz, imagem, posX, variacaoY,largura, altura, larguraSprite, alturaSprite) {
+        super(matriz, imagem, posX, variacaoY,largura, altura, larguraSprite, alturaSprite)
 
         //altura do chao
-        this.y_base = height - this.altura
+        this.y_base = height - this.altura - variacaoY
         this.posY = this.y_base
         this.velocidade_pulo = 0
         //define o valor da gravidade
@@ -11,7 +11,13 @@ class Personagem extends Animacao {
     }
 
     pula() {
-        this.velocidade_pulo = -50;
+        // garantimos que o personagem nao possa fazer saltos maiores que dois pulos
+        if((this.posY + this.velocidade_pulo) > (this.y_base - 150)) {
+            this.velocidade_pulo = -50;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -31,7 +37,8 @@ class Personagem extends Animacao {
 
         //aqui nos certificamos que o personagem não caia mais q o chão
         if(this.posY > this.y_base) {
-            this.posY = this.y_base
+            this.posY = this.y_base;
+            this.velocidade_pulo = 0;
         }
     }
 
